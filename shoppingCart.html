@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card p-4 shadow-lg rounded justify-content-center">
+            <h2 class="text-center">Shopping <span class="description-title text-danger text-center mt-3">Cart</span></h2>
+            <form id="orderForm" action="thanku.html" method="get" class="p-4 shadow-lg rounded">
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="reservation.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-6 selector-container mt-3" style="width: 100%; height: 36px;">
+                            <div class="mb-3">
+                                <label for="options" class="form-label">Choose Your Dish:</label>
+                                <select id="options" class="form-select selector" style="width: 100%; height: 36px; border: 1px solid black">
+                                    <option value="Option1" data-price="">Select</option>
+                                    <option value="Option1" data-price="1000">Lobster roll</option>
+                                    <option value="Option2" data-price="2000">Caesar Salad</option>
+                                    <option value="Option3" data-price="1500">Greek Salad</option>
+                                    <option value="Option4" data-price="2000">Cake</option>
+                                    <option value="Option5" data-price="800">Zinger Burger</option>
+                                    <option value="Option6" data-price="1000">Pasta</option>
+                                    <option value="Option7" data-price="1200">Pizza</option>
+                                    <option value="Option8" data-price="500">Wings</option>
+                                </select>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Quantity:</label>
+                                <input type="number" id="quantity" min="1" value="1" class="form-control" style="border: 1px solid black;">
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-center my-4">Enter Your Details</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3 mt-2">
+                                <input type="text" id="name" class="form-control" placeholder="Your Full Name" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 mt-2">
+                                <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3 mt-2">
+                                <input type="text" id="address" class="form-control" placeholder="Your Address" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3 mt-2">
+                                <input type="tel" id="phone" class="form-control" placeholder="Your Phone Number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p id="total" class="fs-5 text-center my-4">Total Bill: 0</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-danger w-100" onclick="calculateTotal()">Calculate Total</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger w-100" id="confirmOrderBtn">Confirm Order</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+
+<script>
+    // Function to calculate the total bill
+    function calculateTotal() {
+        const selectedDish = document.getElementById('options');
+        const quantity = document.getElementById('quantity').value;
+        const price = parseFloat(selectedDish.options[selectedDish.selectedIndex].dataset.price); // Convert to number
+        const total = price * quantity;
+        document.getElementById('total').innerText = 'Total Bill: ' + total;
+    }
+
+    
+    document.getElementById('orderForm').onsubmit = function(e) {
+        const fields = ['options', 'quantity', 'name', 'email', 'address', 'phone'];
+        for (let field of fields) {
+            if (!document.getElementById(field).value) {
+                e.preventDefault();
+                alert("Please fill out all fields.");
+                return;
+            }
+        }
+    };
+</script>
+
+</body>
+</html>
